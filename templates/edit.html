@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Edit Cafe{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 offset-md-2">
+      <h1 class="mb-4">Edit Cafe: {{ cafe.name }}</h1>
+      <form method="POST" action="{{ url_for('edit_cafe', cafe_id=cafe.id, secret=request.args.get('secret')) }}">
+        <div class="mb-3">
+          <label for="name" class="form-label">Cafe Name</label>
+          <input type="text" class="form-control" name="name" value="{{ cafe.name }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="map_url" class="form-label">Map</label>
+          <input type="url" class="form-control" name="map_url" value="{{ cafe.map_url }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="addr" class="form-label">Address</label>
+          <input type="text" class="form-control" name="address" value="{{ cafe.address }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="web" class="form-label">Website</label>
+          <input type="url" class="form-control" name="website" value="{{ cafe.website }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="google" class="form-label">Google Rating</label>
+          <input type="text" class="form-control" name="google_rate" value="{{ cafe.google_rate }}" required>
+        </div>
+        <div class="mb-3">
+          <label for="price_range" class="form-label">Price Range</label>
+          <input type="text" class="form-control" name="price_range" value="{{ cafe.price_range }}">
+        </div>
+
+        <!-- Checkboxes for options -->
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="has_alcohol" {% if cafe.has_alcohol %}checked{% endif %}>
+          <label class="form-check-label">Has Alcohol?</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="has_lunch" {% if cafe.has_lunch %}checked{% endif %}>
+          <label class="form-check-label">Has Lunch?</label>
+        </div>
+
+        <button type="submit" class="btn btn-success mt-3">Save Changes</button>
+        <a class="btn btn-secondary mt-3" href="{{ url_for('delete_cafe', secret=request.args.get('secret')) }}" role="button">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
